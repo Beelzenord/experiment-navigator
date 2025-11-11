@@ -8,6 +8,7 @@ Web crawlers for extracting policy, terms, prices, and availability from website
 - Node.js 20+
 - Crawlee
 - Playwright
+- Cheerio (via Crawlee)
 - pnpm
 - ESM
 
@@ -20,6 +21,8 @@ npx playwright install
 
 ## Usage
 
+### Basic Crawler (Playwright)
+
 ```typescript
 import { WebsiteCrawler } from './src/crawler.js';
 
@@ -31,15 +34,47 @@ const crawler = new WebsiteCrawler({
 await crawler.run();
 ```
 
+### Hybrid Crawler (Cheerio + Playwright)
+
+The hybrid crawler uses CheerioCrawler for fast static HTML parsing and automatically falls back to PlaywrightCrawler for JavaScript-heavy pages.
+
+```typescript
+import { HybridCrawler } from './src/hybrid.js';
+
+const crawler = new HybridCrawler({
+  startUrls: ['https://example.com'],
+  maxRequestsPerCrawl: 10,
+});
+
+await crawler.run();
+
+// Get statistics
+const stats = crawler.getStats();
+console.log(`JS Fallback Rate: ${stats.js_rate}%`);
+```
+
+**Features:**
+- Fast CheerioCrawler for static HTML (fast pass)
+- Automatic fallback to PlaywrightCrawler when critical fields are missing
+- Shared RequestQueue between both crawlers
+- Statistics tracking (total, http_ok, js_fallback, js_rate)
+- Critical fields: service title, provider, price text
+
 ## Testing on a Website
 
-To test the crawler on a specific website (e.g., https://spolosug.se/):
+### Basic Crawler
 
 ```bash
 pnpm test-crawl
 ```
 
-Results will be saved in `storage/default/datasets/default/` directory.
+### Hybrid Crawler
+
+```bash
+pnpm test-hybrid
+```
+
+Results will be saved in `storage/datasets/default/` directory.
 
 ## Development
 
@@ -55,6 +90,9 @@ pnpm start
 
 # Test crawl on a website
 pnpm test-crawl
+
+# Test hybrid crawler
+pnpm test-hybrid
 ```
 
 ## Features
@@ -63,4 +101,6 @@ pnpm test-crawl
 - Extracts terms and conditions
 - Extracts prices
 - Extracts availability/stock information
-
+- Hybrid crawling with automatic JS fallback
+- Statistics and logging
+- Swedish language support

@@ -7,13 +7,18 @@ export interface CrawledData {
   terms?: string;
   prices?: string[];
   availability?: string;
-  timestamp: Date;
+  timestamp?: Date; // Deprecated, use timestampISO
+  timestampISO?: string; // ISO string timestamp
   metadata?: {
     title?: string;
     description?: string;
     headings?: string[];
     structuredData?: Record<string, unknown>;
   };
+  // Critical fields for hybrid crawler
+  serviceTitle?: string;
+  provider?: string;
+  priceText?: string;
 }
 
 export interface CrawlerConfig {

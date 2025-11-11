@@ -21,6 +21,9 @@ importers:
       '@types/node':
         specifier: ^20.10.0
         version: 20.19.24
+      cheerio:
+        specifier: 1.0.0-rc.12
+        version: 1.0.0-rc.12
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.19.24)(ts-node@10.9.2(@types/node@20.19.24)(typescript@5.9.3))

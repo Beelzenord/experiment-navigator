@@ -2,7 +2,7 @@ import { WebsiteCrawler } from './crawler.js';
 import { Dataset } from 'crawlee';
 
 async function main() {
-  const targetUrl = 'https://spolosug.se/';
+  const targetUrl = 'https://rorjour247.se/';
   console.log(`Starting crawler for ${targetUrl}...\n`);
 
   const crawler = new WebsiteCrawler({
