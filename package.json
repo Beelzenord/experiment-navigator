@@ -10,7 +10,8 @@
     "start": "node dist/index.js",
     "test-crawl": "tsx src/test-crawl.ts",
     "test-hybrid": "tsx src/test-hybrid.ts",
-    "test-content-harvest": "tsx src/test-content-harvest.ts"
+    "test-content-harvest": "tsx src/test-content-harvest.ts",
+    "server": "pnpm exec tsx src/content_harvester_server.ts"
   },
   "keywords": [
     "crawler",
